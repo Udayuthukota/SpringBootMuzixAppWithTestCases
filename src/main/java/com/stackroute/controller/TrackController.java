@@ -78,13 +78,13 @@ private TrackService trackService;
             responseEntity = new ResponseEntity<Optional<Track>>(trackService.getTrackById(trackId), HttpStatus.OK);
         return responseEntity;
     }
-//    @ApiOperation(value = "Get the details of a track by trackName", response = Iterable.class)
-//    @GetMapping("track/{trackName}")
-//    public ResponseEntity<?> findByName(@PathVariable("trackName") String trackName ){
-//        //To find a track using name
-//        ResponseEntity responseEntity;
-//            responseEntity = new ResponseEntity<List<Track>>(trackService.findTrackByName(trackName), HttpStatus.FOUND);
-//        return responseEntity;
-//    }
+    @ApiOperation(value = "Get the details of a track by trackName", response = Iterable.class)
+    @GetMapping("track/{trackName}")
+    public ResponseEntity<?> findByName(@PathVariable("trackName") String trackName ){
+        //To find a track using name
+        ResponseEntity responseEntity;
+            responseEntity = new ResponseEntity<List<Track>>(trackService.findTrackByName(trackName), HttpStatus.FOUND);
+        return responseEntity;
+    }
 
 }
