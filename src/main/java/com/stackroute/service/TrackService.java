@@ -14,6 +14,6 @@ public interface TrackService {
     public Optional<Track> getTrackById(int id) throws TrackNotFoundException;
     public  Track updateTrackComments(String trackComment,int trackId) throws TrackNotFoundException ;
     public boolean deleteTrackById(int id) throws TrackNotFoundException;
-    // List<Track> findTrackByName(String trackName);
+     List<Track> findTrackByName(String trackName);
 
 }

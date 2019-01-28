@@ -71,21 +71,23 @@ public class TrackControllerTest {
     @Test
     public void updateComment() throws Exception {
         when(trackService.updateTrackComments(anyString(),anyInt())).thenReturn(track);
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/track2/{trackId}",4)
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/track2/2/jsjhbjhbs")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
 
     }
 
-    @Test
-    public void deleteMusic() throws Exception {
+@Test
+    public void deleteMuzix() throws Exception {
         when(trackService.deleteTrackById(anyInt())).thenReturn(true);
-        mockMvc.perform(MockMvcRequestBuilders.delete("api/v1/track/{trackId}")
-                        .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
-                        .andExpect(MockMvcResultMatchers.status().isOk())
-                        .andDo(MockMvcResultHandlers.print());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/track1/1")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
     }
+
     @Test
     public void getTrack() throws Exception {
 
@@ -111,6 +113,14 @@ public class TrackControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.trackId").value(6))
                 .andReturn().getResponse().getContentAsString();
+    }
+    @Test
+    public void trackByName() throws Exception {
+        when(trackService.findTrackByName(any())).thenReturn(list);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/tracks/Freak")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(status().isFound())
+                .andDo(print());
     }
     private static String asJsonString(Object obj) {
         try{
