@@ -21,17 +21,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.stackroute"))
                 .paths(regex("/api/v1.*"))
-                .build()
-                .apiInfo(metaData());
-    }
-    private ApiInfo metaData() {
-        return new ApiInfoBuilder()
-                .title("Spring Boot REST API")
-                .description("\"Spring Boot REST API for Online Store\"")
-                .version("1.0.0")
-                .license("Apache License Version 2.0")
-                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
-                .contact(new Contact("John Thompson", "https://springframework.guru/about/", "john@springfrmework.guru"))
                 .build();
     }
     @Override
@@ -42,4 +31,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
+
+
 }

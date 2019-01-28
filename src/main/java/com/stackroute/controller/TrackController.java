@@ -44,13 +44,13 @@ private TrackService trackService;
     return responseEntity;
     }
 
-    @PutMapping("track2/{trackId}")
-    public ResponseEntity<?> updateTrack(@RequestBody Track track,@PathVariable("trackId") int trackId )
+    @PutMapping("track2/{trackId}/{trackComment}")
+    public ResponseEntity<?> updateTrackComments(@PathVariable("trackComment") String trackComment,@PathVariable("trackId") int trackId )
     {
         //to update all the tracks
         ResponseEntity responseEntity;
         try {
-            trackService.updateTrack(track, trackId);
+            trackService.updateTrackComments(trackComment, trackId);
             responseEntity = new ResponseEntity<String>("Successfully Updated", HttpStatus.OK);
         }catch (Exception ex) {
             responseEntity = new ResponseEntity(ex.getMessage(), HttpStatus.CONFLICT);
@@ -60,13 +60,13 @@ private TrackService trackService;
 
     @ApiOperation(value = "Delete a track", response = Iterable.class)
     @GetMapping("track1/{trackId}")
-    public ResponseEntity<?> deleteTrack(@PathVariable("trackId") int trackId ) throws TrackNotFoundException
+    public boolean deleteTrack(@PathVariable("trackId") int trackId ) throws TrackNotFoundException
     {
         //to delete a particular track usind id
-        ResponseEntity responseEntity;
             trackService.deleteTrackById(trackId);
-            responseEntity = new ResponseEntity<List<Track>>(trackService.getAllTracks(), HttpStatus.OK);
-        return responseEntity;
+            //responseEntity = new ResponseEntity<List<Track>>(trackService.getAllTracks(), HttpStatus.OK);
+       // return responseEntity;
+        return true;
     }
     @ApiOperation(value = "Get the details of a track by ID", response = Iterable.class)
     @GetMapping("track/{trackId}")
@@ -78,13 +78,13 @@ private TrackService trackService;
             responseEntity = new ResponseEntity<Optional<Track>>(trackService.getTrackById(trackId), HttpStatus.OK);
         return responseEntity;
     }
-    @ApiOperation(value = "Get the details of a track by trackName", response = Iterable.class)
-    @GetMapping("track/{trackName}")
-    public ResponseEntity<?> findByName(@PathVariable("trackName") String trackName ){
-        //To find a track using name
-        ResponseEntity responseEntity;
-            responseEntity = new ResponseEntity<List<Track>>(trackService.findTrackByName(trackName), HttpStatus.FOUND);
-        return responseEntity;
-    }
+//    @ApiOperation(value = "Get the details of a track by trackName", response = Iterable.class)
+//    @GetMapping("track/{trackName}")
+//    public ResponseEntity<?> findTrackByName(@PathVariable("trackName") String trackName ){
+//        //To find a track using name
+//        ResponseEntity responseEntity;
+//            responseEntity = new ResponseEntity<List<Track>>(trackService.findTrackByName(trackName), HttpStatus.FOUND);
+//        return responseEntity;
+//    }
 
 }

@@ -48,26 +48,36 @@ public class TrackServiceImpl implements TrackService {
     }
     //updating a new track with existing one or if not fond it saves as a new one
     @Override
-    public Track updateTrack(Track track,int trackId) {
-        Track updatedTrack=trackRepository.save(track);
-        return updatedTrack;
-    }
+    public Track updateTrackComments(String trackComments,int trackId)throws TrackNotFoundException {
+        if(!trackRepository.existsById(trackId)){
+            throw new TrackNotFoundException("Track to update not found");
+        }
+
+        Track updateMusic = trackRepository.findById(trackId).get();
+        updateMusic.setTrackComment(trackComments);
+        return trackRepository.save(updateMusic);
+
+
+
+       }
+
+
     //deleting a track method
     @Override
-    public List<Track> deleteTrackById(int id) throws TrackNotFoundException {
-        if(trackRepository.existsById(id)) {
-            trackRepository.deleteById(id);
-            return trackRepository.findAll();
+    public boolean deleteTrackById(int trackId) throws TrackNotFoundException {
+        if(trackRepository.existsById(trackId)) {
+            trackRepository.deleteById(trackId);
         }
         else
         {
             throw new TrackNotFoundException("Track Not found");
         }
+        return true;
     }
    // finding a track by name
-    @Override
-    public List<Track> findTrackByName(String trackName)  {
-        return trackRepository.findTrackByName(trackName);
-
-    }
+//    @Override
+//    public List<Track> findTrackByName(String trackName)  {
+//        return trackRepository.findTrackByName(trackName);
+//
+//    }
 }

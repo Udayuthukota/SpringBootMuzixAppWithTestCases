@@ -8,22 +8,20 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 @Component
-class ApplicationListenerConfig implements org.springframework.context.ApplicationListener<ContextRefreshedEvent> {
+public class ApplicationListenerConfig implements org.springframework.context.ApplicationListener<ContextRefreshedEvent> {
     @Autowired
-   TrackRepository trackRepository;
-    @Value("0")
+   public TrackRepository trackRepository;
+    @Value("2")
     private int trackId;
-    @Value("default listner")
+    @Value("default listener")
     private String trackName;
-    @Value("default comments")
+    @Value("default listener comments")
     private String trackComment;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        Track track=new Track(trackId,trackName,trackComment);
+        Track track = new Track(trackId, trackName, trackComment);
         trackRepository.save(track);
-
     }
-
 
 }
